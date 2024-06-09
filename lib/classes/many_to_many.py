@@ -69,7 +69,7 @@ class Concert:
     @venue.setter
     def venue(self, value):
         if not isinstance(value, Venue):
-            raise ValueError("Concert venue must be of type Venue")
+            raise ValueError("Concert venue must be of Venue type")
         self._venue = value
 
     @property
@@ -79,7 +79,7 @@ class Concert:
     @band.setter
     def band(self, value):
         if not isinstance(value, Band):
-            raise ValueError("Concert band must be of type Band")
+            raise ValueError("Concert band must be of Band type")
         self._band = value
 
     def hometown_show(self):
@@ -121,10 +121,10 @@ class Venue:
         self._concerts.append(concert)
 
     def concerts(self):
-        return [concert for concert in Concert.all_concerts if concert.venue == self]
+       return list(filter(lambda concert: concert.venue == self, Concert.all_concerts))
 
     def bands(self):
-        return  list({concert.band for concert in self.concerts()})
+       return [concert.band for concert in self.concerts()]
     
     def concert_on(self, date):
         for concert in self.concerts():
